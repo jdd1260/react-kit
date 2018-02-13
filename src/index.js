@@ -14,7 +14,7 @@ const middleWareStore = applyMiddleware(promise)(createStore);
 
 ReactDOM.render((
     <Provider store={ middleWareStore(reducers) }>
-        <App />
+        <App title="Welcome to react-kit" />
     </Provider>
   ), document.getElementById('root'));
 registerServiceWorker();
