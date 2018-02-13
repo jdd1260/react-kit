@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Fade } from 'reactstrap';
 
 import logo from './logo.svg';
-import './App.css';
+import './app.css';
 
 class App extends Component {
   render() {
