@@ -1,7 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+# react-kit
+react-kit is designed to eliminate hassle when starting a new React project. It is a react project starter kit that provides you with all the setup work completed so that you can go from zero to deployment in no time. It is based on the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you. Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+## What’s Included?
+
+Your environment will have everything you need to build a modern single-page React app:
+
+* [React](https://facebook.github.io/react/) is the JavaScript framework this project is designed around. 
+* JSX, and ES6 syntax support.
+* Language extras beyond ES6 like the object spread operator.
+* Autoprefixed CSS, so you don’t need `-webkit-` or other prefixes.
+* A fast interactive unit test runner with built-in support for coverage reporting.
+* A live development server that warns about common mistakes.
+* A build script to bundle JS, CSS, and images for production, with hashes and sourcemaps.
+* An offline-first [service worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) and a [web app manifest](https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/), meeting all the [Progressive Web App](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) criteria.
+* Hassle-free updates for the above tools with a single dependency.
+
+
+Additionally, you get these customizations pre-configured:
+
+* [Redux](http://redux.js.org/) and [React-Redux](https://github.com/reactjs/react-redux) gives us an enhanced state management framework and integration with React.
+* [Sass](http://sass-lang.com) is the CSS extension language to supercharge your CSS development.
+* [Bootstrap](http://getbootstrap.com/) for improved styling and mobile-first design.
+* [Reactstrap](https://reactstrap.github.io/) integrates Bootstrap and React.
+* [redux-promise](https://github.com/acdlite/redux-promise) is Redux middleware to add support for nice handling of promises. This is great when using REST APIs.
+* [prop-types](https://www.npmjs.com/package/prop-types) for defining and checking React prop types.
+
+The tradeoff is that **these tools are preconfigured to work in a specific way**. If your project needs more customization, you can ["eject"](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-run-eject) and customize it, but then you will need to maintain this configuration.
+
 
 ## Table of Contents
 
@@ -24,7 +49,6 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Importing a Component](#importing-a-component)
 - [Code Splitting](#code-splitting)
 - [Adding a Stylesheet](#adding-a-stylesheet)
-- [Post-Processing CSS](#post-processing-css)
 - [Adding a CSS Preprocessor (Sass, Less etc.)](#adding-a-css-preprocessor-sass-less-etc)
 - [Adding Images, Fonts, and Files](#adding-images-fonts-and-files)
 - [Using the `public` Folder](#using-the-public-folder)
@@ -32,8 +56,6 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
   - [When to Use the `public` Folder](#when-to-use-the-public-folder)
 - [Using Global Variables](#using-global-variables)
-- [Adding Bootstrap](#adding-bootstrap)
-  - [Using a Custom Theme](#using-a-custom-theme)
 - [Adding Flow](#adding-flow)
 - [Adding a Router](#adding-a-router)
 - [Adding Custom Environment Variables](#adding-custom-environment-variables)
@@ -137,12 +159,16 @@ my-app/
     index.html
     favicon.ico
   src/
-    App.css
-    App.js
-    App.test.js
-    index.css
     index.js
-    logo.svg
+    reducers.js
+    index.scss
+    _variables.scss
+    components/
+      app/
+        App.css
+        App.js
+        App.test.js
+        logo.svg
 ```
 
 For the project to build, **these files must exist with exact filenames**:
@@ -545,100 +571,6 @@ becomes this:
 
 If you need to disable autoprefixing for some reason, [follow this section](https://github.com/postcss/autoprefixer#disabling).
 
-## Adding a CSS Preprocessor (Sass, Less etc.)
-
-Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a `.Button` CSS class in `<AcceptButton>` and `<RejectButton>` components, we recommend creating a `<Button>` component with its own `.Button` styles, that both `<AcceptButton>` and `<RejectButton>` can render (but [not inherit](https://facebook.github.io/react/docs/composition-vs-inheritance.html)).
-
-Following this rule often makes CSS preprocessors less useful, as features like mixins and nesting are replaced by component composition. You can, however, integrate a CSS preprocessor if you find it valuable. In this walkthrough, we will be using Sass, but you can also use Less, or another alternative.
-
-First, let’s install the command-line interface for Sass:
-
-```sh
-npm install --save node-sass-chokidar
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add node-sass-chokidar
-```
-
-Then in `package.json`, add the following lines to `scripts`:
-
-```diff
-   "scripts": {
-+    "build-css": "node-sass-chokidar src/ -o src/",
-+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-     "start": "react-scripts start",
-     "build": "react-scripts build",
-     "test": "react-scripts test --env=jsdom",
-```
-
->Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
-
-Now you can rename `src/App.css` to `src/App.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/App.css`. Since `src/App.js` still imports `src/App.css`, the styles become a part of your application. You can now edit `src/App.scss`, and `src/App.css` will be regenerated.
-
-To share variables between Sass files, you can use Sass imports. For example, `src/App.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
-
-To enable importing files without using relative paths, you can add the  `--include-path` option to the command in `package.json`.
-
-```
-"build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-"watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-```
-
-This will allow you to do imports like
-
-```scss
-@import 'styles/_colors.scss'; // assuming a styles directory under src/
-@import 'nprogress/nprogress'; // importing a css file from the nprogress node module
-```
-
-At this point you might want to remove all CSS files from the source control, and add `src/**/*.css` to your `.gitignore` file. It is generally a good practice to keep the build products outside of the source control.
-
-As a final step, you may find it convenient to run `watch-css` automatically with `npm start`, and run `build-css` as a part of `npm run build`. You can use the `&&` operator to execute two scripts sequentially. However, there is no cross-platform way to run two scripts in parallel, so we will install a package for this:
-
-```sh
-npm install --save npm-run-all
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add npm-run-all
-```
-
-Then we can change `start` and `build` scripts to include the CSS preprocessor commands:
-
-```diff
-   "scripts": {
-     "build-css": "node-sass-chokidar src/ -o src/",
-     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
--    "start": "react-scripts start",
--    "build": "react-scripts build",
-+    "start-js": "react-scripts start",
-+    "start": "npm-run-all -p watch-css start-js",
-+    "build-js": "react-scripts build",
-+    "build": "npm-run-all build-css build-js",
-     "test": "react-scripts test --env=jsdom",
-     "eject": "react-scripts eject"
-   }
-```
-
-Now running `npm start` and `npm run build` also builds Sass files.
-
-**Why `node-sass-chokidar`?**
-
-`node-sass` has been reported as having the following issues:
-
-- `node-sass --watch` has been reported to have *performance issues* in certain conditions when used in a virtual machine or with docker.
-
-- Infinite styles compiling [#1939](https://github.com/facebookincubator/create-react-app/issues/1939)
-
-- `node-sass` has been reported as having issues with detecting new files in a directory [#1891](https://github.com/sass/node-sass/issues/1891)
-
- `node-sass-chokidar` is used here as it addresses these issues.
-
 ## Adding Images, Fonts, and Files
 
 With Webpack, using static assets like images and fonts works similarly to CSS.
@@ -757,50 +689,6 @@ const $ = window.$;
 This makes it obvious you are using a global variable intentionally rather than because of a typo.
 
 Alternatively, you can force the linter to ignore any line by adding `// eslint-disable-line` after it.
-
-## Adding Bootstrap
-
-You don’t have to use [React Bootstrap](https://react-bootstrap.github.io) together with React but it is a popular library for integrating Bootstrap with React apps. If you need it, you can integrate it with Create React App by following these steps:
-
-Install React Bootstrap and Bootstrap from npm. React Bootstrap does not include Bootstrap CSS so this needs to be installed as well:
-
-```sh
-npm install --save react-bootstrap bootstrap@3
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add react-bootstrap bootstrap@3
-```
-
-Import Bootstrap CSS and optionally Bootstrap theme CSS in the beginning of your ```src/index.js``` file:
-
-```js
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-```
-
-Import required React Bootstrap components within ```src/App.js``` file or your custom component files:
-
-```js
-import { Navbar, Jumbotron, Button } from 'react-bootstrap';
-```
-
-Now you are ready to use the imported React Bootstrap components within your component hierarchy defined in the render method. Here is an example [`App.js`](https://gist.githubusercontent.com/gaearon/85d8c067f6af1e56277c82d19fd4da7b/raw/6158dd991b67284e9fc8d70b9d973efe87659d72/App.js) redone using React Bootstrap.
-
-### Using a Custom Theme
-
-Sometimes you might need to tweak the visual styles of Bootstrap (or equivalent package).<br>
-We suggest the following approach:
-
-* Create a new package that depends on the package you wish to customize, e.g. Bootstrap.
-* Add the necessary build steps to tweak the theme, and publish your package on npm.
-* Install your own theme npm package as a dependency of your app.
-
-Here is an example of adding a [customized Bootstrap](https://medium.com/@tacomanator/customizing-create-react-app-aa9ffb88165) that follows these steps.
 
 ## Adding Flow
 
