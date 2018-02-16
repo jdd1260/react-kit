@@ -1,0 +1,43 @@
+import reducer from './reducer';
+{{#if hasActions}}
+import * as actions from './actions';
+{{/if}}
+
+describe('{{ component }} reducer', () => {
+    it('should return the initial state', () => {
+        expect(reducer(undefined, {})).toEqual({});
+    });
+    
+    context('with a valid action type provided', () => {
+        const action = { type: actions.ACTION_TYPE };
+    
+        context('with an empty state', () => {
+            it('should start a call counter', () => {
+                expect(reducer(undefined, action)).toEqual({ calls: 1 });
+            });
+        });
+        
+        context('with an existing call counter', () => {
+            it('should increment the call counter', () => {
+                expect(reducer({ calls: 5 }, action)).toEqual({ calls: 6 });
+            });
+        });
+    });
+    
+    context('without a valid action type provided', () => {
+        const action = { type: 'fake' };
+    
+        context('with an empty state', () => {
+            it('should not start a call counter', () => {
+                expect(reducer(undefined, action)).toEqual({});
+            });
+        });
+        
+        context('with an existing call counter', () => {
+            it('should not increment the call counter', () => {
+                expect(reducer({ calls: 5 }, action)).toEqual({ calls: 5 });
+            });
+        });
+    });
+
+})

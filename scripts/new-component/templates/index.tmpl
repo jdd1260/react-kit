@@ -1,0 +1,45 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+//import { } from 'reactstrap';
+
+{{#if hasActions}}
+import * as actions from './actions';
+{{/if}}
+{{#if hasCss}}
+import './index.css';
+{{/if}}
+
+export class {{ component }} extends Component {
+    static get propTypes() {
+        {{#if hasActions}}
+        return {
+            exampleAction: PropTypes.func
+        };
+        {{else}}
+        return {};
+        {{/if}}
+    }
+    
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
+            <div className="{{ component }}" ></div>    
+        )
+    }
+}
+
+function mapStateToProps(state) {
+    return {}; 
+}
+
+{{#if hasActions}}
+const mappedActions = { ...actions };
+{{else}}
+const mappedActions = {};
+{{/if}}
+
+export default connect(mapStateToProps, mappedActions)({{ component }});

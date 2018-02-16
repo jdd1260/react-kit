@@ -2,6 +2,9 @@
   "name": "react-kit",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "node-sass-chokidar": "^0.0.3",
@@ -22,7 +25,15 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "npm run build-css && react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "new-component": "node ./scripts/new-component/"
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "handlebars": "^4.0.11",
+    "jest-context": "^2.1.0",
+    "lodash": "^4.17.5"
   }
 }
