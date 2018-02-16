@@ -1,11 +1,14 @@
 # react-kit
-react-kit is designed to eliminate hassle when starting a new React project. It is a react project starter kit that provides you with all the setup work completed so that you can go from zero to deployment in no time. It is based on the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you. Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
+react-kit is designed to eliminate hassle and speed development when starting a new React + Redux project - all the setup is handled for you. You are also provided with a script to generate new components (including actions, reducers, and tests), saving you time wasted re-writing boilerplate. 
+
+The project builds off the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you and additional tools. Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
 
 ## What’s Included?
 
 Your environment will have everything you need to build a modern single-page React app:
 
 * [React](https://facebook.github.io/react/) is the JavaScript framework this project is designed around. 
+* A script to generate new components for you.
 * JSX, and ES6 syntax support.
 * Language extras beyond ES6 like the object spread operator.
 * Autoprefixed CSS, so you don’t need `-webkit-` or other prefixes.
@@ -24,13 +27,19 @@ Additionally, you get these customizations pre-configured:
 * [Reactstrap](https://reactstrap.github.io/) integrates Bootstrap and React.
 * [redux-promise](https://github.com/acdlite/redux-promise) is Redux middleware to add support for nice handling of promises. This is great when using REST APIs.
 * [prop-types](https://www.npmjs.com/package/prop-types) for defining and checking React prop types.
+* [Jest](https://facebook.github.io/jest/) and [Enzyme](https://github.com/airbnb/enzyme) all set up for easy React component testing.
 
-The tradeoff is that **these tools are preconfigured to work in a specific way**. If your project needs more customization, you can ["eject"](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-run-eject) and customize it, but then you will need to maintain this configuration.
+Lastly, you can also quickly generate new component directories with:
+* A Redux-connected component
+* An actions file
+* A reducer, connected to your global state
+* Tests set up for each of those files above
 
 
 ## Table of Contents
 
 - [Folder Structure](#folder-structure)
+- [Requirements](#requirements)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
@@ -135,16 +144,12 @@ my-app/
     index.html
     favicon.ico
   src/
-    index.js
-    reducers.js
-    index.scss
     _variables.scss
-    components/
-      app/
-        App.css
-        App.js
-        App.test.js
-        logo.svg
+    index.js
+    index.scss
+    reducers.js
+    registerServiceWorker.js
+    setupTests.js
 ```
 
 For the project to build, **these files must exist with exact filenames**:
@@ -162,6 +167,13 @@ Read instructions below for using assets from JavaScript and HTML.
 
 You can, however, create more top-level directories.<br>
 They will not be included in the production build so you can use them for things like documentation.
+
+## Requirements
+
+This project requires the use of node > v9.5.0. The suggested way to manage your node version is through [nvm](https://github.com/creationix/nvm). Once installed, simply run:
+```nvm install```
+
+This will install and use the needed version of node for this project.
 
 ## Available Scripts
 
@@ -189,6 +201,29 @@ The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 See the section about [deployment](#deployment) for more information.
+
+### `npm run new-component`
+
+Creates a new component in the `src/components` directory. You will be prompted for a component name. Then you have the option to create actions, a reducer, and an scss file for the component. If you were to give a component name of `Item` and agree to all options, your file structure will look like:
+
+```
+my-app/
+  src/
+    components/
+      item/
+        actions.js
+        actions.test.js
+        index.js
+        index.scss
+        index.test.js
+        reducer.js
+        reducer.test.js
+```
+
+Your component (in `index.js`) is tested and comes plugged into the generated actions, which are connected to the reducer. The reducer is connected to the global state through `src/reducers.js`. Each of these files is functioning and tested right from the start. 
+
+This tool is designed to speed the creation of new redux-connected components. To customize this script to better suit your needs simply change the [handlebars](http://handlebarsjs.com/) templates found in `scripts/new-component/templates` as needed.
+
 
 ### `npm run eject`
 
@@ -1207,63 +1242,6 @@ it('renders without crashing', () => {
 This test mounts a component and makes sure that it didn’t throw during rendering. Tests like this provide a lot of value with very little effort so they are great as a starting point, and this is the test you will find in `src/App.test.js`.
 
 When you encounter bugs caused by changing components, you will gain a deeper insight into which parts of them are worth testing in your application. This might be a good time to introduce more specific tests asserting specific expected output or behavior.
-
-If you’d like to test components in isolation from the child components they render, we recommend using [`shallow()` rendering API](http://airbnb.io/enzyme/docs/api/shallow.html) from [Enzyme](http://airbnb.io/enzyme/). To install it, run:
-
-```sh
-npm install --save enzyme enzyme-adapter-react-16 react-test-renderer
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add enzyme enzyme-adapter-react-16 react-test-renderer
-```
-
-As of Enzyme 3, you will need to install Enzyme along with an Adapter corresponding to the version of React you are using. (The examples above use the adapter for React 16.)
-
-The adapter will also need to be configured in your [global setup file](#initializing-test-environment):
-
-#### `src/setupTests.js`
-```js
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({ adapter: new Adapter() });
-```
-
->Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it. [Read here](#initializing-test-environment) to learn how to add this after ejecting.
-
-Now you can write a smoke test with it:
-
-```js
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
-
-it('renders without crashing', () => {
-  shallow(<App />);
-});
-```
-
-Unlike the previous smoke test using `ReactDOM.render()`, this test only renders `<App>` and doesn’t go deeper. For example, even if `<App>` itself renders a `<Button>` that throws, this test will pass. Shallow rendering is great for isolated unit tests, but you may still want to create some full rendering tests to ensure the components integrate correctly. Enzyme supports [full rendering with `mount()`](http://airbnb.io/enzyme/docs/api/mount.html), and you can also use it for testing state changes and component lifecycle.
-
-You can read the [Enzyme documentation](http://airbnb.io/enzyme/) for more testing techniques. Enzyme documentation uses Chai and Sinon for assertions but you don’t have to use them because Jest provides built-in `expect()` and `jest.fn()` for spies.
-
-Here is an example from Enzyme documentation that asserts specific output, rewritten to use Jest matchers:
-
-```js
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
-
-it('renders welcome message', () => {
-  const wrapper = shallow(<App />);
-  const welcome = <h2>Welcome to React</h2>;
-  // expect(wrapper.contains(welcome)).to.equal(true);
-  expect(wrapper.contains(welcome)).toEqual(true);
-});
-```
 
 All Jest matchers are [extensively documented here](http://facebook.github.io/jest/docs/en/expect.html).<br>
 Nevertheless you can use a third-party assertion library like [Chai](http://chaijs.com/) if you want to, as described below.
