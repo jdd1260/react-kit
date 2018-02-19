@@ -5,6 +5,18 @@
   "engines": {
     "node": ">=9.5.0"
   },
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "npm run build-css && eslint --ext=js . && react-scripts test --env=jsdom",
+    "test-lint": "npm run build-css && eslint --ext=js .",
+    "eject": "react-scripts eject",
+    "new-component": "node ./scripts/new-component/"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "node-sass-chokidar": "^0.0.3",
@@ -18,20 +30,14 @@
     "redux": "^3.7.2",
     "redux-promise": "^0.5.3"
   },
-  "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js",
-    "test": "npm run build-css && react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "new-component": "node ./scripts/new-component/"
-  },
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
     "handlebars": "^4.0.11",
     "jest-context": "^2.1.0",
     "lodash": "^4.17.5"

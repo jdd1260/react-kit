@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "context": true  
+  },
+  "rules": {    
+    "no-useless-constructor": [1],
+    "import/no-extraneous-dependencies": ["error", {
+        "devDependencies": [
+            "**/*.test.{js,jsx}", // tests where the extension denotes that it is a test
+            "src/setupTests.js", // jest config,
+            "scripts/**/*"
+        ],
+        "optionalDependencies": false
+    }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/no-unused-prop-types": [1],
+    "react/prefer-stateless-function": [1]
+  }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-//import { } from 'reactstrap';
+// import { } from 'reactstrap';
 
 {{#if hasActions}}
 import * as actions from './actions';
@@ -11,29 +11,39 @@ import './index.css';
 {{/if}}
 
 export class {{ component }} extends Component {
-    static get propTypes() {
-        {{#if hasActions}}
-        return {
-            exampleAction: PropTypes.func
-        };
-        {{else}}
-        return {};
-        {{/if}}
-    }
-    
-    constructor(props) {
-        super(props);
-    }
-    
-    render() {
-        return (
-            <div className="{{ component }}" ></div>    
-        )
-    }
+  static get propTypes() {
+    {{#if hasActions}}
+    return {
+      exampleAction: PropTypes.func,
+    };
+    {{else}}
+    return {};
+    {{/if}}
+  }
+
+  static get defaultProps() {
+    {{#if hasActions}}
+    return {
+      exampleAction: () => null,
+    };
+    {{else}}
+    return {};
+    {{/if}}
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="{{ component }}" />
+    );
+  }
 }
 
-function mapStateToProps(state) {
-    return {}; 
+function mapStateToProps(state) { // eslint-disable-line no-unused-vars
+  return {};
 }
 
 {{#if hasActions}}

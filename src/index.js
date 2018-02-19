@@ -10,8 +10,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 const middleWareStore = applyMiddleware(promise)(createStore);
 
-ReactDOM.render((
-    <Provider store={ middleWareStore(reducers) }>
-    </Provider>
-  ), document.getElementById('root'));
+ReactDOM.render(
+  (
+    <Provider store={middleWareStore(reducers)} />
+  ), document.getElementById('root'),
+);
 registerServiceWorker();

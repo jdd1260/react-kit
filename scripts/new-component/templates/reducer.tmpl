@@ -1,17 +1,13 @@
-{{#if hasActions}}
 import * as actions from './actions';
-{{/if}}
 
-export default function(state = {}, action) {
-    switch(action.type) {
-        {{#if hasActions}}
-        case actions.ACTION_TYPE:
-            return {
-                ...state,
-                calls: (state.calls || 0) + 1
-            };
-        {{/if}}
-        default:
-            return state;
-    }
+export default function (state = {}, action) {
+  switch (action.type) {
+    case actions.ACTION_TYPE:
+      return {
+        ...state,
+        calls: (state.calls || 0) + 1,
+      };
+    default:
+      return state;
+  }
 }

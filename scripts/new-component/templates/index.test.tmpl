@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 
 import { {{ component }} } from '../{{ directory }}';
 
 describe('{{ component }}', () => {
-    describe('render', () => {
-        it('does not crash', () => {
-            shallow(<{{ component }} />);
-        });
+  describe('render', () => {
+    it('does not crash', () => {
+      shallow(<{{ component }} />);
     });
+  });
 });
 
