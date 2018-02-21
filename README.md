@@ -45,7 +45,6 @@ Lastly, you can also quickly generate new component directories with:
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
-  - [npm run eject](#npm-run-eject)
 - [Supported Browsers](#supported-browsers)
 - [Supported Language Features and Polyfills](#supported-language-features-and-polyfills)
 - [Syntax Highlighting in the Editor](#syntax-highlighting-in-the-editor)
@@ -129,7 +128,6 @@ Lastly, you can also quickly generate new component directories with:
   - [`npm run build` fails on Heroku](#npm-run-build-fails-on-heroku)
   - [`npm run build` fails to minify](#npm-run-build-fails-to-minify)
   - [Moment.js locales are missing](#momentjs-locales-are-missing)
-- [Alternatives to Ejecting](#alternatives-to-ejecting)
 - [Something Missing?](#something-missing)
 
 ## Folder Structure
@@ -229,17 +227,6 @@ Your component (in `index.js`) is tested and comes plugged into the generated ac
 
 This tool is designed to speed the creation of new redux-connected components. To customize this script to better suit your needs simply change the [handlebars](http://handlebarsjs.com/) templates found in `scripts/new-component/templates` as needed.
 
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 ## Supported Browsers
 
 By default, the generated project uses the latest version of React.
@@ -278,8 +265,7 @@ To configure the syntax highlighting in your favorite text editor, head to the [
 
 ## Displaying Lint Output in the Editor
 
->Note: this feature is available with `react-scripts@0.2.0` and higher.<br>
->It also only works with npm 3 or higher.
+>Note: this only works with npm 3 or higher.
 
 Some editors, including Sublime Text, Atom, and Visual Studio Code, provide plugins for ESLint.
 
@@ -333,56 +319,6 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
 The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
-
-## Formatting Code Automatically
-
-Prettier is an opinionated code formatter with support for JavaScript, CSS and JSON. With Prettier you can format the code you write automatically to ensure a code style within your project. See the [Prettier's GitHub page](https://github.com/prettier/prettier) for more information, and look at this [page to see it in action](https://prettier.github.io/prettier/).
-
-To format our code whenever we make a commit in git, we need to install the following dependencies:
-
-```sh
-npm install --save husky lint-staged prettier
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add husky lint-staged prettier
-```
-
-* `husky` makes it easy to use githooks as if they are npm scripts.
-* `lint-staged` allows us to run scripts on staged files in git. See this [blog post about lint-staged to learn more about it](https://medium.com/@okonetchnikov/make-linting-great-again-f3890e1ad6b8).
-* `prettier` is the JavaScript formatter we will run before commits.
-
-Now we can make sure every file is formatted correctly by adding a few lines to the `package.json` in the project root.
-
-Add the following line to `scripts` section:
-
-```diff
-  "scripts": {
-+   "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-```
-
-Next we add a 'lint-staged' field to the `package.json`, for example:
-
-```diff
-  "dependencies": {
-    // ...
-  },
-+ "lint-staged": {
-+   "src/**/*.{js,jsx,json,css}": [
-+     "prettier --single-quote --write",
-+     "git add"
-+   ]
-+ },
-  "scripts": {
-```
-
-Now, whenever you make a commit, Prettier will format the changed files automatically. You can also run `./node_modules/.bin/prettier --single-quote --write "src/**/*.{js,jsx,json,css}"` to format your entire project for the first time.
-
-Next you might want to integrate Prettier in your favorite editor. Read the section on [Editor Integration](https://prettier.io/docs/en/editors.html) on the Prettier GitHub page.
 
 ## Changing the Page `<title>`
 
@@ -620,8 +556,6 @@ An alternative way of handling static assets is described in the next section.
 
 ## Using the `public` Folder
 
->Note: this feature is available with `react-scripts@0.5.0` and higher.
-
 ### Changing the HTML
 
 The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title](#changing-the-page-title).
@@ -737,8 +671,6 @@ Note that [you may need to configure your production server to support client-si
 
 ## Adding Custom Environment Variables
 
->Note: this feature is available with `react-scripts@0.2.3` and higher.
-
 Your project can consume variables declared in your environment as if they were declared locally in your JS files. By
 default you will have `NODE_ENV` defined for you, and any other environment variables starting with
 `REACT_APP_`.
@@ -800,8 +732,6 @@ When you compile the app with `npm run build`, the minification step will strip 
 
 ### Referencing Environment Variables in the HTML
 
->Note: this feature is available with `react-scripts@0.9.0` and higher.
-
 You can also access the environment variables starting with `REACT_APP_` in the `public/index.html`. For example:
 
 ```html
@@ -840,8 +770,6 @@ REACT_APP_SECRET_CODE=abcdef npm start
 
 ### Adding Development Environment Variables In `.env`
 
->Note: this feature is available with `react-scripts@0.5.0` and higher.
-
 To define permanent environment variables, create a file called `.env` in the root of your project:
 
 ```
@@ -852,8 +780,6 @@ REACT_APP_SECRET_CODE=abcdef
 `.env` files **should be** checked into source control (with the exclusion of `.env*.local`).
 
 #### What other `.env` files can be used?
-
->Note: this feature is **available with `react-scripts@1.0.0` and higher**.
 
 * `.env`: Default.
 * `.env.local`: Local overrides. **This file is loaded for all environments except test.**
@@ -873,8 +799,6 @@ Please refer to the [dotenv documentation](https://github.com/motdotla/dotenv) f
 these defined as well. Consult their documentation how to do this. For example, see the documentation for [Travis CI](https://docs.travis-ci.com/user/environment-variables/) or [Heroku](https://devcenter.heroku.com/articles/config-vars).
 
 #### Expanding Environment Variables In `.env`
-
->Note: this feature is available with `react-scripts@1.1.0` and higher.
 
 Expand variables already on your machine for use in your `.env` file (using [dotenv-expand](https://github.com/motdotla/dotenv-expand)).
 
@@ -937,8 +861,6 @@ You can find the companion GitHub repository [here](https://github.com/fullstack
 
 ## Proxying API Requests in Development
 
->Note: this feature is available with `react-scripts@0.2.3` and higher.
-
 People often serve the front-end React app from the same host and port as their backend implementation.<br>
 For example, a production setup might look like this after the app is deployed:
 
@@ -1000,8 +922,6 @@ DANGEROUSLY_DISABLE_HOST_CHECK=true
 We don’t recommend this approach.
 
 ### Configuring the Proxy Manually
-
->Note: this feature is available with `react-scripts@1.0.0` and higher.
 
 If the `proxy` option is **not** flexible enough for you, you can specify an object in the following form (in `package.json`).<br>
 You may also specify any configuration value [`http-proxy-middleware`](https://github.com/chimurai/http-proxy-middleware#options) or [`http-proxy`](https://github.com/nodejitsu/node-http-proxy#options) supports.
@@ -1089,8 +1009,6 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
 
 ## Using HTTPS in Development
 
->Note: this feature is available with `react-scripts@0.4.0` and higher.
-
 You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature](#proxying-api-requests-in-development) to proxy requests to an API server when that API server is itself serving HTTPS.
 
 To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`:
@@ -1160,10 +1078,7 @@ Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data 
 
 ## Running Tests
 
->Note: this feature is available with `react-scripts@0.3.0` and higher.<br>
->[Read the migration guide to learn how to enable it in older projects!](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md#migrating-from-023-to-030)
-
-Create React App uses [Jest](https://facebook.github.io/jest/) as its test runner. To prepare for this integration, we did a [major revamp](https://facebook.github.io/jest/blog/2016/09/01/jest-15.html) of Jest so if you heard bad things about it years ago, give it another try.
+React-kit uses [Jest](https://facebook.github.io/jest/) as its test runner. To prepare for this integration, we did a [major revamp](https://facebook.github.io/jest/blog/2016/09/01/jest-15.html) of Jest so if you heard bad things about it years ago, give it another try.
 
 Jest is a Node-based runner. This means that the tests always run in a Node environment and not in a real browser. This lets us enable fast iteration speed and prevent flakiness.
 
@@ -1280,8 +1195,6 @@ and then use them in your tests like you normally do.
 
 ### Initializing Test Environment
 
->Note: this feature is available with `react-scripts@0.4.0` and higher.
-
 If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `src/setupTests.js` to your project. It will be automatically executed before running your tests.
 
 For example:
@@ -1295,15 +1208,6 @@ const localStorageMock = {
 };
 global.localStorage = localStorageMock
 ```
-
->Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it, so you should manually create the property `setupTestFrameworkScriptFile` in the configuration for Jest, something like the following:
-
->```js
->"jest": {
->   // ...
->   "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
->  }
->  ```
 
 ### Focusing and Excluding Tests
 
@@ -1424,41 +1328,6 @@ The test command will force Jest to run tests once instead of launching the watc
 
 The build command will check for linter warnings and fail if any are found.
 
-### Disabling jsdom
-
-By default, the `package.json` of the generated project looks like this:
-
-```js
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
-```
-
-If you know that none of your tests depend on [jsdom](https://github.com/tmpvar/jsdom), you can safely remove `--env=jsdom`, and your tests will run faster:
-
-```diff
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
--   "test": "react-scripts test --env=jsdom"
-+   "test": "react-scripts test"
-```
-
-To help you make up your mind, here is a list of APIs that **need jsdom**:
-
-* Any browser globals like `window` and `document`
-* [`ReactDOM.render()`](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render)
-* [`TestUtils.renderIntoDocument()`](https://facebook.github.io/react/docs/test-utils.html#renderintodocument) ([a shortcut](https://github.com/facebook/react/blob/34761cf9a252964abfaab6faf74d473ad95d1f21/src/test/ReactTestUtils.js#L83-L91) for the above)
-* [`mount()`](http://airbnb.io/enzyme/docs/api/mount.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
-
-In contrast, **jsdom is not needed** for the following APIs:
-
-* [`TestUtils.createRenderer()`](https://facebook.github.io/react/docs/test-utils.html#shallow-rendering) (shallow rendering)
-* [`shallow()`](http://airbnb.io/enzyme/docs/api/shallow.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
-
-Finally, jsdom is also not needed for [snapshot testing](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
-
 ### Snapshot Testing
 
 Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. [Read more about snapshot testing.](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html)
@@ -1480,7 +1349,7 @@ There are various ways to setup a debugger for your Jest tests. We cover debuggi
 Add the following to the `scripts` section in your project's `package.json`
 ```json
 "scripts": {
-    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom"
+    "test:debug": "node scripts/test.js --env=jsdom --inspect-brk --runInBand"
   }
 ```
 Place `debugger;` statements in any test and run:
@@ -1569,44 +1438,6 @@ Learn more about React Storybook:
 * [GitHub Repo](https://github.com/storybooks/storybook)
 * [Documentation](https://storybook.js.org/basics/introduction/)
 * [Snapshot Testing UI](https://github.com/storybooks/storybook/tree/master/addons/storyshots) with Storybook + addon/storyshot
-
-### Getting Started with Styleguidist
-
-Styleguidist combines a style guide, where all your components are presented on a single page with their props documentation and usage examples, with an environment for developing components in isolation, similar to Storybook. In Styleguidist you write examples in Markdown, where each code snippet is rendered as a live editable playground.
-
-First, install Styleguidist:
-
-```sh
-npm install --save react-styleguidist
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add react-styleguidist
-```
-
-Then, add these scripts to your `package.json`:
-
-```diff
-   "scripts": {
-+    "styleguide": "styleguidist server",
-+    "styleguide:build": "styleguidist build",
-     "start": "react-scripts start",
-```
-
-Then, run the following command inside your app’s directory:
-
-```sh
-npm run styleguide
-```
-
-After that, follow the instructions on the screen.
-
-Learn more about React Styleguidist:
-
-* [GitHub Repo](https://github.com/styleguidist/react-styleguidist)
-* [Documentation](https://react-styleguidist.js.org/docs/getting-started.html)
 
 ## Publishing Components to npm
 
@@ -1700,8 +1531,7 @@ JavaScript console.
 1. By default, the generated service worker file will not intercept or cache any
 cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend),
 images, or embeds loaded from a different domain. If you would like to use a
-runtime caching strategy for those requests, you can [`eject`](#npm-run-eject)
-and then configure the
+runtime caching strategy for those requests, configure the
 [`runtimeCaching`](https://github.com/GoogleChrome/sw-precache#runtimecaching-arrayobject)
 option in the `SWPrecacheWebpackPlugin` section of
 [`webpack.config.prod.js`](../config/webpack.config.prod.js).
@@ -1741,10 +1571,7 @@ Then in `package.json`, add the following line to `scripts`:
 
 ```diff
    "scripts": {
-+    "analyze": "source-map-explorer build/static/js/main.*",
-     "start": "react-scripts start",
-     "build": "react-scripts build",
-     "test": "react-scripts test --env=jsdom",
++    "analyze": "source-map-explorer build/static/js/main.*"
 ```
 
 Then to analyze the bundle run the production build then run the analyze
@@ -1835,8 +1662,7 @@ Now requests to `/todos/42` will be handled correctly both in development and in
 On a production build, and in a browser that supports [service workers](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers),
 the service worker will automatically handle all navigation requests, like for
 `/todos/42`, by serving the cached copy of your `index.html`. This
-service worker navigation routing can be configured or disabled by
-[`eject`ing](#npm-run-eject) and then modifying the
+service worker navigation routing can be configured or disabled by modifying the
 [`navigateFallback`](https://github.com/GoogleChrome/sw-precache#navigatefallback-string)
 and [`navigateFallbackWhitelist`](https://github.com/GoogleChrome/sw-precache#navigatefallbackwhitelist-arrayregexp)
 options of the `SWPreachePlugin` [configuration](../config/webpack.config.prod.js).
@@ -1868,8 +1694,6 @@ For example:
 ```
 
 #### Serving the Same Build from Different Paths
-
->Note: this feature is available with `react-scripts@0.9.0` and higher.
 
 If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your `package.json`:
 
@@ -1960,8 +1784,6 @@ For more information see [Add Firebase to your JavaScript Project](https://fireb
 
 ### [GitHub Pages](https://pages.github.com/)
 
->Note: this feature is available with `react-scripts@0.2.0` and higher.
-
 #### Step 1: Add `homepage` to `package.json`
 
 **The step below is important!**<br>
@@ -2003,8 +1825,6 @@ Add the following scripts in your `package.json`:
   "scripts": {
 +   "predeploy": "npm run build",
 +   "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
 ```
 
 The `predeploy` script will run automatically before `deploy` is run.
@@ -2185,7 +2005,7 @@ If none of these solutions help please leave a comment [in this thread](https://
 
 ### `npm test` hangs on macOS Sierra
 
-If you run `npm test` and the console gets stuck after printing `react-scripts test --env=jsdom` to the console there might be a problem with your [Watchman](https://facebook.github.io/watchman/) installation as described in [facebookincubator/create-react-app#713](https://github.com/facebookincubator/create-react-app/issues/713).
+If you run `npm test` and the console gets stuck there might be a problem with your [Watchman](https://facebook.github.io/watchman/) installation as described in [facebookincubator/create-react-app#713](https://github.com/facebookincubator/create-react-app/issues/713).
 
 We recommend deleting `node_modules` in your project and running `npm install` (or `yarn` if you use it) first. If it doesn't help, you can try one of the numerous workarounds mentioned in these issues:
 
@@ -2261,11 +2081,3 @@ To resolve this:
 3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
 
 In the future, we might start automatically compiling incompatible third-party modules, but it is not currently supported. This approach would also slow down the production builds.
-
-## Alternatives to Ejecting
-
-[Ejecting](#npm-run-eject) lets you customize anything, but from that point on you have to maintain the configuration and scripts yourself. This can be daunting if you have many similar projects. In such cases instead of ejecting we recommend to *fork* `react-scripts` and any other packages you need. [This article](https://auth0.com/blog/how-to-configure-create-react-app/) dives into how to do it in depth. You can find more discussion in [this issue](https://github.com/facebookincubator/create-react-app/issues/682).
-
-## Something Missing?
-
-If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)

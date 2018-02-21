@@ -12,7 +12,9 @@ const middleWareStore = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
   (
-    <Provider store={middleWareStore(reducers)} />
+    <Provider store={middleWareStore(reducers)} >
+      <div>React-kit</div>
+    </Provider>
   ), document.getElementById('root'),
 );
 registerServiceWorker();
