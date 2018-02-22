@@ -3,6 +3,8 @@ react-kit is designed to eliminate hassle and speed development when starting a 
 
 The project builds off the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you and additional tools. Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
 
+If you prefer to develop with [Preact](https://preactjs.com/), a leightweight alternative to React, checkout the [branch](https://github.com/jdd1260/react-kit/tree/support-preact) for that.
+
 ## What’s Included?
 
 Your environment will have everything you need to build a modern single-page React app:
