@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { h, render } from 'preact'; // eslint-disable-line no-unused-vars
+import { Provider } from 'preact-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 
@@ -10,7 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 const middleWareStore = applyMiddleware(promise)(createStore);
 
-ReactDOM.render(
+render(
   (
     <Provider store={middleWareStore(reducers)} >
       <div>React-kit</div>

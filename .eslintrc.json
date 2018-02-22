@@ -17,6 +17,8 @@
         ],
         "optionalDependencies": false
     }],
+    "import/no-named-as-default": false,
+    "react/react-in-jsx-scope": false,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/no-unused-prop-types": [1],
     "react/prefer-stateless-function": [1]
