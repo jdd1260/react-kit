@@ -138,16 +138,22 @@ my-app/
   README.md
   node_modules/
   package.json
+  config/
+    setupTests.js
   public/
     index.html
     favicon.ico
+  scripts/
+    new-component/
+    build.js
+    start.js
+    test.js
   src/
     _variables.scss
     index.js
     index.scss
     reducers.js
     registerServiceWorker.js
-    setupTests.js
 ```
 
 For the project to build, **these files must exist with exact filenames**:
@@ -172,6 +178,10 @@ This project requires the use of node > v9.5.0. The suggested way to manage your
 ```nvm install```
 
 This will install and use the needed version of node for this project.
+
+## Development
+
+Everything you need to develop locally and build a deployable set of files comes set up for you. You should be able to exclusively make your code changes in the `src` directory. `config` and `scripts` should mostly go untouched. If you need to make changes to the build process or scripts (e.g. running tests or component generation) you can make those changes in `scripts`. However, any changes to `config` or `scripts` are dangerous and should be made with proper consideration.
 
 ## Available Scripts
 
@@ -1152,11 +1162,11 @@ and then use them in your tests like you normally do.
 
 ### Initializing Test Environment
 
-If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `src/setupTests.js` to your project. It will be automatically executed before running your tests.
+If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `config/setupTests.js` to your project. It will be automatically executed before running your tests.
 
 For example:
 
-#### `src/setupTests.js`
+#### `config/setupTests.js`
 ```js
 const localStorageMock = {
   getItem: jest.fn(),
