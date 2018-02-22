@@ -1,13 +1,13 @@
-# react-kit
-react-kit is designed to eliminate hassle and speed development when starting a new React + Redux project - all the setup is handled for you. You are also provided with a script to generate new components (including actions, reducers, and tests), saving you time wasted re-writing boilerplate. 
+# preact-kit
+preact-kit is designed to eliminate hassle and speed development when starting a new Preact + Redux project - all the setup is handled for you. You are also provided with a script to generate new components (including actions, reducers, and tests), saving you time wasted re-writing boilerplate. 
 
-The project builds off the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you and additional tools. Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
+The project builds off the structure provided by [create-react-app](https://github.com/facebookincubator/create-react-app), but comes with more setup done for you and additional tools. But unlike create-react-app, this sets you up with the leightweight [Preact](https://preactjs.com/) framework.Simply [fork](https://help.github.com/articles/fork-a-repo/) this repository and start developing!
 
 ## What’s Included?
 
 Your environment will have everything you need to build a modern single-page React app:
 
-* [React](https://facebook.github.io/react/) is the JavaScript framework this project is designed around. 
+* [Preact](https://preactjs.com/)is the JavaScript framework this project is designed around. 
 * A script to generate new components for you.
 * JSX, and ES6 syntax support.
 * Language extras beyond ES6 like the object spread operator.
@@ -24,10 +24,9 @@ Additionally, you get these customizations pre-configured:
 * [Redux](http://redux.js.org/) and [React-Redux](https://github.com/reactjs/react-redux) gives us an enhanced state management framework and integration with React.
 * [Sass](http://sass-lang.com) is the CSS extension language to supercharge your CSS development.
 * [Bootstrap](http://getbootstrap.com/) for improved styling and mobile-first design.
-* [Reactstrap](https://reactstrap.github.io/) integrates Bootstrap and React.
 * [redux-promise](https://github.com/acdlite/redux-promise) is Redux middleware to add support for nice handling of promises. This is great when using REST APIs.
 * [prop-types](https://www.npmjs.com/package/prop-types) for defining and checking React prop types.
-* [Jest](https://facebook.github.io/jest/) and [Enzyme](https://github.com/airbnb/enzyme) all set up for easy React component testing.
+* [Jest](https://facebook.github.io/jest/) and [preact-render-spy](https://github.com/mzgoddard/preact-render-spy) all set up for easy Preact component testing.
 * [ESLint](https://eslint.org/) for code styling enforcement. Enforces the [AirBnB style guide](https://github.com/airbnb/javascript) by default. 
 
 Lastly, you can also quickly generate new component directories with:
@@ -1136,49 +1135,7 @@ You can also use [`jest.fn()` and `expect(fn).toBeCalled()`](https://facebook.gi
 
 There is a broad spectrum of component testing techniques. They range from a “smoke test” verifying that a component renders without throwing, to shallow rendering and testing some of the output, to full rendering and testing component lifecycle and state changes.
 
-Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. If you haven’t decided on a testing strategy yet, we recommend that you start with creating simple smoke tests for your components:
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-});
-```
-
-This test mounts a component and makes sure that it didn’t throw during rendering. Tests like this provide a lot of value with very little effort so they are great as a starting point, and this is the test you will find in `src/App.test.js`.
-
-When you encounter bugs caused by changing components, you will gain a deeper insight into which parts of them are worth testing in your application. This might be a good time to introduce more specific tests asserting specific expected output or behavior.
-
-All Jest matchers are [extensively documented here](http://facebook.github.io/jest/docs/en/expect.html).<br>
-Nevertheless you can use a third-party assertion library like [Chai](http://chaijs.com/) if you want to, as described below.
-
-Additionally, you might find [jest-enzyme](https://github.com/blainekasten/enzyme-matchers) helpful to simplify your tests with readable matchers. The above `contains` code can be written more simply with jest-enzyme.
-
-```js
-expect(wrapper).toContainReact(welcome)
-```
-
-To enable this, install `jest-enzyme`:
-
-```sh
-npm install --save jest-enzyme
-```
-
-Alternatively you may use `yarn`:
-
-```sh
-yarn add jest-enzyme
-```
-
-Import it in [`src/setupTests.js`](#initializing-test-environment) to make its matchers available in every test:
-
-```js
-import 'jest-enzyme';
-```
+Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. We recommend using the `npm run new-component` to create components and tests for you.
 
 ### Using Third Party Assertion Libraries
 
